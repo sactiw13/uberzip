@@ -40,7 +40,10 @@ object UberZip {
     val counter = new AtomicInteger()
 
     class UnzipWorker(zip: ZipFile, entry: ZipEntry, directory: File) extends Runnable {
-      override def run(): Unit = UberZip.unzip(zip, entry, directory)
+      override def run(): Unit = {
+        UberZip.unzip(zip, entry, directory)
+        counter.decrementAndGet()
+      }
     }
 
     val zip = new ZipFile(file)
